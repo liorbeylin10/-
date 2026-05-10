@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>דשבורד בעל העסק - כצפיחית בדבש</title>
+  <style>
+    :root {
+      --page: #eef7f1;
+      --paper: #ffffff;
+      --ink: #1f2320;
+      --muted: #5f6a61;
+      --line: #d9e4d8;
+      --coffee: #351d11;
+      --honey: #d88a10;
+      --teal: #0f766e;
+      --berry: #b4234b;
+      --ok: #1f7a45;
+      --graphite: #17211c;
+      --radius: 8px;
+      --shadow: 0 22px 58px rgba(31, 35, 32, 0.13);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans Hebrew", "Assistant", "Heebo", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(238, 247, 241, 0.96), rgba(255, 247, 236, 0.82)),
+        url("live-site-home.png") center / cover fixed no-repeat;
+      line-height: 1.7;
+      letter-spacing: 0;
+    }
+
+    button { font: inherit; }
+
+    .wrap {
+      width: min(1160px, calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(217, 228, 216, 0.9);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: grid;
+      gap: 2px;
+    }
+
+    .brand strong {
+      color: var(--coffee);
+      font-size: 21px;
+      line-height: 1.15;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 7px 12px;
+      background: #e8f9ef;
+      color: var(--ok);
+      font-size: 13px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .status::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--ok);
+    }
+
+    .hero {
+      padding-block: 52px 26px;
+    }
+
+    .hero h1 {
+      max-width: 880px;
+      margin: 0 0 12px;
+      color: var(--coffee);
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 1.08;
+      font-weight: 950;
+    }
+
+    .hero p {
+      max-width: 820px;
+      margin: 0;
+      color: #46544b;
+      font-size: 19px;
+      font-weight: 850;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.78fr);
+      gap: 18px;
+      align-items: stretch;
+      padding-block: 18px 64px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, #fff7ec, #f3fffb);
+    }
+
+    .panel-head strong {
+      color: var(--coffee);
+      font-size: 23px;
+      line-height: 1.15;
+    }
+
+    .panel-head span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .btn {
+      border: 1px solid rgba(216, 138, 16, 0.35);
+      border-radius: var(--radius);
+      min-height: 42px;
+      padding: 9px 13px;
+      background: #fff;
+      color: var(--coffee);
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .lead-table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(217, 228, 216, 0.82);
+      text-align: start;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      background: #fbfcf8;
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    td {
+      color: var(--coffee);
+      font-weight: 850;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: #e8f9ef;
+      color: var(--ok);
+      font-size: 12px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .pill.hot {
+      background: #fff0d8;
+      color: #9a5a07;
+    }
+
+    .pill.owner {
+      background: #fff0f3;
+      color: var(--berry);
+    }
+
+    .digest {
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .digest-line {
+      border: 1px solid rgba(217, 228, 216, 0.9);
+      border-radius: var(--radius);
+      background: #fbfcf8;
+      padding: 12px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .digest-line span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .digest-line strong {
+      color: var(--coffee);
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .next-box {
+      border-radius: var(--radius);
+      background: var(--graphite);
+      color: #fff;
+      padding: 16px;
+      display: grid;
+      gap: 5px;
+    }
+
+    .next-box span {
+      color: #d6e8dd;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .next-box strong {
+      font-size: 19px;
+      line-height: 1.35;
+    }
+
+    .note-strip {
+      margin-block-start: 14px;
+      border: 1px solid rgba(15, 118, 110, 0.22);
+      border-radius: var(--radius);
+      background: rgba(243, 255, 251, 0.94);
+      padding: 14px 16px;
+      color: #25564d;
+      font-weight: 900;
+    }
+
+    @media (max-width: 860px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding-block: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <strong>דשבורד בעל העסק</strong>
+        <span>כצפיחית בדבש - מסך פנימי שלא מוצג ללקוחות באתר</span>
+      </div>
+      <span class="status">מעקב פניות פעיל בדמו</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>כל פנייה הופכת לשורה ברורה</h1>
+      <p>הלקוחות רואים אתר נקי. בעל העסק רואה כאן מי פנה, מה הוא רוצה, מה חסר ומה הפעולה הבאה. זה ההבדל בין אתר יפה לבין מערכת שמסדרת עבודה.</p>
+    </section>
+
+    <section class="wrap dashboard" aria-label="דשבורד לידים פרטי לבעל העסק">
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <strong>לוח פניות פנימי</strong>
+            <span>נוצר מהטופס ומהסוכן. בדמו אין שליחה חיצונית.</span>
+          </div>
+          <button class="btn" type="button" id="refresh">רענון</button>
+        </div>
+        <div class="lead-table-wrap">
+          <table aria-label="לוח פניות פנימי">
+            <thead>
+              <tr>
+                <th>מקור</th>
+                <th>לקוח</th>
+                <th>סוג פנייה</th>
+                <th>עדיפות</th>
+                <th>סטטוס</th>
+                <th>פעולה הבאה</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="lead-source">דף פנייה חכם</td>
+                <td id="lead-name">לקוח לדוגמה</td>
+                <td id="lead-type">מגשי אירוח</td>
+                <td id="lead-priority">גבוהה</td>
+                <td><span class="pill hot" id="lead-status">ליד חם</span></td>
+                <td id="lead-next">לחזור עם זמינות ומחיר אחרי איסוף שעה וסוג מגשים</td>
+              </tr>
+              <tr>
+                <td>שאלה בדף</td>
+                <td>לקוח חוזר</td>
+                <td>משלוח</td>
+                <td>בינונית</td>
+                <td><span class="pill">איסוף פרטים</span></td>
+                <td>בדיקת אזור ושעת משלוח</td>
+              </tr>
+              <tr>
+                <td>סוכן</td>
+                <td>לקוחה לאירוע</td>
+                <td>כשרות/אלרגנים</td>
+                <td>אדומה</td>
+                <td><span class="pill owner">בעלים נדרש</span></td>
+                <td>לא לענות בלי ניסוח מאושר</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <aside class="panel">
+        <div class="panel-head">
+          <div>
+            <strong>תקציר לבעל העסק</strong>
+            <span>מה צריך לדעת בלי לקרוא שרשור הודעות</span>
+          </div>
+        </div>
+        <div class="digest">
+          <div class="digest-line">
+            <span>מי פנה</span>
+            <strong id="digest-name">לקוח לדוגמה - 050-0000000</strong>
+          </div>
+          <div class="digest-line">
+            <span>מה הלקוח רוצה</span>
+            <strong id="digest-want">מגשי אירוח ל-25 אנשים</strong>
+          </div>
+          <div class="digest-line">
+            <span>מה חסר</span>
+            <strong id="digest-missing">שעה, סוג מגשים וטלפון מאומת</strong>
+          </div>
+          <div class="next-box">
+            <span>הפעולה הבאה</span>
+            <strong id="digest-next">לחזור עם מחיר וזמינות אחרי אישור בעלים</strong>
+          </div>
+          <div class="note-strip">מחיר, הנחה, זמינות, כשרות ואלרגנים נשארים באישור בעל העסק. הסוכן מסדר את הפנייה, לא לוקח החלטות רגישות לבד.</div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    function fallbackLead() {
+      return {
+        source: "דף פנייה חכם",
+        name: "לקוח לדוגמה",
+        phone: "050-0000000",
+        type: "מגשי אירוח",
+        people: "25 אנשים",
+        budget: "לא נמסר תקציב",
+        urgency: "השבוע",
+        date: "לא נבחר תאריך",
+        time: "לא נבחרה שעה",
+        area: "טירת כרמל",
+        status: "ליד חם",
+        priority: "גבוהה",
+        missing: "שעה, סוג מגשים וטלפון מאומת",
+        nextAction: "לחזור עם מחיר וזמינות אחרי אישור בעלים"
+      };
+    }
+
+    function readLead() {
+      try {
+        const saved = localStorage.getItem("kezpihitLatestLead");
+        return saved ? { ...fallbackLead(), ...JSON.parse(saved) } : fallbackLead();
+      } catch (error) {
+        return fallbackLead();
+      }
+    }
+
+    function renderLead() {
+      const lead = readLead();
+      document.getElementById("lead-source").textContent = lead.source || "דף פנייה חכם";
+      document.getElementById("lead-name").textContent = lead.name || "לקוח";
+      document.getElementById("lead-type").textContent = lead.type || "פנייה";
+      document.getElementById("lead-priority").textContent = lead.priority || "בינונית";
+      document.getElementById("lead-status").textContent = lead.status || "פנייה חדשה";
+      document.getElementById("lead-next").textContent = lead.nextAction || "חזרה ללקוח עם תשובה מסודרת";
+      document.getElementById("digest-name").textContent = `${lead.name || "לקוח"} - ${lead.phone || "לא נמסר טלפון"}`;
+      const dateText = lead.date && lead.date !== "לא נבחר תאריך" ? lead.date : "תאריך לא נבחר";
+      const timeText = lead.time && lead.time !== "לא נבחרה שעה" ? lead.time : "שעה לא נבחרה";
+      document.getElementById("digest-want").textContent = `${lead.type || "פנייה"}, ${lead.people || "לא נמסרה כמות"}, ${dateText}, ${timeText}, תקציב: ${lead.budget || "לא נמסר"}`;
+      document.getElementById("digest-missing").textContent = lead.missing || "פרטים להשלמת הפנייה";
+      document.getElementById("digest-next").textContent = lead.nextAction || "חזרה ללקוח עם תשובה מסודרת";
+    }
+
+    document.getElementById("refresh").addEventListener("click", renderLead);
+    window.addEventListener("storage", renderLead);
+    renderLead();
+  </script>
+</body>
+</html>

@@ -1,13 +1,14 @@
 # Ktzefihit Smart Lead Demo
 
-Static demo for a smart lead-capture and owner follow-up flow.
+Static smart-site demo for a cafe/food-service lead-capture and owner follow-up flow.
 
 ## What This Demo Shows
 
-- A customer-facing inquiry path.
-- A live "lead pressure" example with multiple incoming inquiries.
-- Owner-side lead status: who asked, what is missing, urgency, and next action.
-- A limited pilot framing for one lead type before moving into a paid monthly system.
+- A customer-facing smart website for orders, delivery, catering trays, and questions.
+- A visible inquiry form above the fold.
+- A smart ordering assistant section.
+- Owner-side dashboard link for lead status: who asked, what is missing, urgency, and next action.
+- Local SEO and business-intent sections for Tirat Carmel food/cafe searches.
 
 ## Design Direction
 
@@ -50,3 +51,9 @@ GitHub will give you a public demo link.
 ## Notes
 
 This is a proof demo only. It does not send WhatsApp messages, emails, CRM updates, or real customer data.
+
+Current production entry:
+
+- `/` -> `index.html`
+- `/smart-site.html` -> same smart site
+- `/owner-dashboard.html` -> owner dashboard demo
