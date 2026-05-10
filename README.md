@@ -9,6 +9,17 @@ Static demo for a smart lead-capture and owner follow-up flow.
 - Owner-side lead status: who asked, what is missing, urgency, and next action.
 - A limited pilot framing for one lead type before moving into a paid monthly system.
 
+## Design Direction
+
+The page uses a warm cafe/food-service visual direction with a conversion-focused layout:
+
+- clear hero message
+- strong primary CTA
+- visible food imagery
+- owner dashboard proof
+- accessible contrast and large touch targets
+- mobile-first stacking without horizontal overflow
+
 ## Run Locally
 
 Open `index.html` directly in a browser, or run:
