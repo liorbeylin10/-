@@ -1,0 +1,1481 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>כצפיחית בדבש - דמו מסלול פנייה חכם</title>
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --ink: #1f2520;
+      --muted: #626b61;
+      --line: #d9ded4;
+      --surface: #ffffff;
+      --surface-2: #f0f4ec;
+      --green: #2f6f4e;
+      --green-2: #e6f0e8;
+      --plum: #74445c;
+      --honey: #c98728;
+      --blue: #2f5870;
+      --danger: #9b3b32;
+      --shadow: 0 18px 48px rgba(31, 37, 32, 0.12);
+      --radius: 8px;
+      --font: "Segoe UI", "Noto Sans Hebrew", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.84), rgba(247,247,244,0.98) 42%),
+        var(--bg);
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px clamp(18px, 4vw, 48px);
+      background: rgba(247, 247, 244, 0.92);
+      border-bottom: 1px solid rgba(217, 222, 212, 0.88);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--green), var(--plum));
+      border-radius: 8px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .brand-title {
+      display: grid;
+      gap: 2px;
+    }
+
+    .brand-title strong {
+      font-size: 16px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .brand-title span {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-link,
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    .nav-link {
+      color: var(--muted);
+      background: transparent;
+    }
+
+    .nav-link:hover {
+      color: var(--ink);
+      background: rgba(47, 111, 78, 0.08);
+    }
+
+    .button.primary {
+      color: #fff;
+      background: var(--green);
+      box-shadow: 0 10px 24px rgba(47, 111, 78, 0.22);
+    }
+
+    .button.secondary {
+      color: var(--green);
+      background: var(--green-2);
+      border-color: rgba(47, 111, 78, 0.18);
+    }
+
+    .button.ghost {
+      color: var(--ink);
+      background: #fff;
+      border-color: var(--line);
+    }
+
+    .button:hover,
+    .nav-link:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.98fr);
+      gap: clamp(22px, 4vw, 54px);
+      align-items: center;
+      min-height: auto;
+      padding: clamp(34px, 5vw, 64px) clamp(18px, 4vw, 56px) clamp(30px, 5vw, 58px);
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: 24px;
+      max-width: 660px;
+    }
+
+    .system-note {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 8px;
+      padding: 8px 10px;
+      color: #34453b;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .system-note::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 680px;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 0.98;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 600px;
+      color: #3d473f;
+      font-size: clamp(18px, 2.1vw, 23px);
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .quick-proof {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 660px;
+    }
+
+    .proof-item {
+      min-height: 96px;
+      padding: 14px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .proof-item strong {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 15px;
+    }
+
+    .proof-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .hero-visual {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .media-frame {
+      position: relative;
+      overflow: hidden;
+      min-height: 430px;
+      background: #dfe7dc;
+      border: 1px solid rgba(31,37,32,0.12);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .media-frame img {
+      width: 100%;
+      height: 100%;
+      min-height: 430px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.02) contrast(1.02);
+    }
+
+    .media-panel {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(255,255,255,0.94);
+      border: 1px solid rgba(217,222,212,0.9);
+      border-radius: 8px;
+      box-shadow: 0 14px 34px rgba(31,37,32,0.16);
+    }
+
+    .media-panel .line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 0 9px;
+      color: var(--green);
+      background: var(--green-2);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .tracker-mini {
+      display: grid;
+      gap: 8px;
+    }
+
+    .tracker-mini .row {
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 8px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .tracker-mini b {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .section {
+      padding: clamp(42px, 6vw, 76px) clamp(18px, 4vw, 56px);
+    }
+
+    .section-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+      gap: clamp(20px, 4vw, 42px);
+      align-items: start;
+    }
+
+    .section-title {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.08;
+      font-weight: 830;
+      letter-spacing: 0;
+    }
+
+    .section-title p {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+    }
+
+    .flow-step {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .step-num {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      color: #fff;
+      background: var(--blue);
+      border-radius: 8px;
+      font-weight: 850;
+    }
+
+    .flow-step h3 {
+      margin-bottom: 4px;
+      font-size: 17px;
+    }
+
+    .flow-step p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .demo-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.86fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 12px 34px rgba(31,37,32,0.08);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfa;
+    }
+
+    .panel-head strong {
+      font-size: 16px;
+    }
+
+    .panel-head span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    form {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: #364139;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 11px 12px;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid #cfd6cb;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 86px;
+      line-height: 1.45;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(47,111,78,0.14);
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .safe-note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .tracker {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .lead-card {
+      display: grid;
+      gap: 14px;
+      padding: 14px;
+      background: var(--surface-2);
+      border: 1px solid #d4ddcf;
+      border-radius: 8px;
+    }
+
+    .lead-card.hot {
+      background: #fff7eb;
+      border-color: #ead4b5;
+    }
+
+    .lead-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .lead-top h3 {
+      font-size: 17px;
+      line-height: 1.3;
+    }
+
+    .lead-top p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      margin-top: 4px;
+    }
+
+    .lead-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .data-pill {
+      display: grid;
+      gap: 3px;
+      min-height: 58px;
+      padding: 10px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(217,222,212,0.9);
+      border-radius: 8px;
+    }
+
+    .data-pill small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .data-pill span {
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 750;
+    }
+
+    .owner-action {
+      padding: 12px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: #313b34;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 9px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .tag.green {
+      color: var(--green);
+      background: var(--green-2);
+      border-color: rgba(47,111,78,0.18);
+    }
+
+    .tag.plum {
+      color: var(--plum);
+      background: #f5edf2;
+      border-color: #ead5e1;
+    }
+
+    .tag.honey {
+      color: #7d4b11;
+      background: #fff2df;
+      border-color: #efd3a7;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .comparison-item {
+      padding: 16px;
+      min-height: 152px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .comparison-item strong {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 17px;
+    }
+
+    .comparison-item p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .pressure-strip {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 28px;
+      padding: 18px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 12px 34px rgba(31,37,32,0.08);
+    }
+
+    .pressure-copy {
+      display: grid;
+      align-content: center;
+      gap: 12px;
+    }
+
+    .pressure-copy h3 {
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.1;
+    }
+
+    .pressure-copy p {
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    .pressure-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .pressure-card {
+      display: grid;
+      gap: 8px;
+      min-height: 136px;
+      padding: 14px;
+      background: var(--surface-2);
+      border: 1px solid #d4ddcf;
+      border-radius: 8px;
+    }
+
+    .pressure-card strong {
+      font-size: 15px;
+      line-height: 1.25;
+    }
+
+    .pressure-card span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .queue-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      padding: 0 16px 14px;
+    }
+
+    .queue-metric {
+      display: grid;
+      place-items: center;
+      gap: 2px;
+      min-height: 74px;
+      background: #fbfcfa;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .queue-metric strong {
+      color: var(--green);
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .queue-metric span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .queue-list {
+      display: grid;
+      gap: 8px;
+      padding: 0 16px 16px;
+    }
+
+    .queue-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 12px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .queue-row strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 14px;
+      line-height: 1.25;
+    }
+
+    .queue-row span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .pilot-note {
+      margin-top: 18px;
+      padding: 16px;
+      background: linear-gradient(135deg, #fff7eb, #f0f4ec);
+      border: 1px solid #ead4b5;
+      border-radius: 8px;
+      color: #44352a;
+      line-height: 1.65;
+      font-weight: 700;
+    }
+
+    .preview-band {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 20px;
+      align-items: center;
+      padding: 18px;
+      background: var(--ink);
+      border-radius: 8px;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .preview-band img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .preview-band h2 {
+      margin-bottom: 12px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.08;
+    }
+
+    .preview-band p {
+      color: rgba(255,255,255,0.76);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .toast {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 30;
+      display: none;
+      max-width: min(420px, calc(100vw - 36px));
+      padding: 14px 16px;
+      background: #1f2520;
+      color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 16px 36px rgba(31,37,32,0.22);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .toast.visible {
+      display: block;
+      animation: rise 220ms ease-out both;
+    }
+
+    @keyframes rise {
+      from {
+        transform: translateY(8px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: 1020px) {
+      .hero,
+      .split,
+      .demo-shell,
+      .preview-band {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .media-frame,
+      .media-frame img {
+        min-height: 360px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-actions {
+        width: 100%;
+        justify-content: stretch;
+      }
+
+      .nav-actions .button,
+      .nav-actions .nav-link {
+        flex: 1 1 140px;
+      }
+
+      h1 {
+        font-size: clamp(38px, 12vw, 54px);
+      }
+
+      .quick-proof,
+      .pressure-strip,
+      .pressure-grid,
+      .queue-summary,
+      .field-grid,
+      .lead-fields,
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+
+      .media-panel {
+        position: static;
+        margin: 12px;
+      }
+
+      .media-frame {
+        display: grid;
+      }
+
+      .media-frame,
+      .media-frame img {
+        min-height: 260px;
+      }
+
+      .hero-actions .button,
+      .form-actions .button {
+        width: 100%;
+      }
+
+      .panel-head,
+      .lead-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="כצפיחית בדבש - דמו">
+        <span class="brand-mark">כ</span>
+        <span class="brand-title">
+          <strong>כצפיחית בדבש</strong>
+          <span>מסלול פנייה חכם - הדגמה לבעל העסק</span>
+        </span>
+      </a>
+      <nav class="nav-actions" aria-label="ניווט בדמו">
+        <a class="nav-link" href="#flow">המסלול</a>
+        <a class="nav-link" href="#pressure">עומס פניות</a>
+        <a class="nav-link" href="#lead">הדמיית ליד</a>
+        <a class="button primary" href="#lead">להראות את הדמו</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="system-note">הדגמה חיה - ללא שליחת הודעות אמיתיות</span>
+          <h1>כשנכנסות כמה פניות, לא צריך עוד בוט. צריך סדר.</h1>
+          <p class="lead">
+            במקום שלקוח יחכה על הקו, ישלח הודעה וייעלם למתחרה - המערכת אוספת את הפרטים, מסמנת מה דחוף, ומראה לבעל העסק למי לחזור קודם.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#lead">נסה פנייה לדוגמה</a>
+            <button class="button secondary" type="button" data-load-pressure>הראה 4 פניות עומס</button>
+            <button class="button secondary" type="button" data-fill-demo>מלא דוגמה אוטומטית</button>
+            <a class="button ghost" href="#owner">לוח בעל העסק</a>
+          </div>
+          <div class="quick-proof" aria-label="נקודות ערך">
+            <div class="proof-item">
+              <strong>בוט רגיל עונה</strong>
+              <span>אבל לרוב לא מנהל סטטוס, דחיפות, מה חסר ולמי חוזרים קודם.</span>
+            </div>
+            <div class="proof-item">
+              <strong>המערכת מסדרת</strong>
+              <span>כל פנייה מקבלת סוג, דחיפות, חסרים ופעולה הבאה.</span>
+            </div>
+            <div class="proof-item">
+              <strong>פיילוט מוגבל</strong>
+              <span>אפשר להוכיח ערך שבוע אחד לפני שמחברים מערכת מלאה.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="תצוגת דמו">
+          <div class="media-frame">
+            <img src="live-site-home.png" alt="צילום מסך של אתר כצפיחית בדבש">
+            <div class="media-panel">
+              <div class="line">
+                <strong>פנייה חדשה לדוגמה</strong>
+                <span class="status-chip">דורש חזרה היום</span>
+              </div>
+              <div class="tracker-mini">
+                <div class="row"><b>מה הלקוח רוצה</b><span>מגשי אירוח לאירוע חברה</span></div>
+                <div class="row"><b>מה חסר</b><span>תקציב ואישור כמות סופי</span></div>
+                <div class="row"><b>פעולה הבאה</b><span>לחזור עם 2 אופציות ולשאול על רגישויות</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="flow">
+        <div class="section-inner split">
+          <div class="section-title">
+            <h2>מה הדמו מראה בשיחה</h2>
+            <p>
+              לא מוכרים פה אתר חדש בשביל יופי. מראים מסלול קצר שמסדר פניות לאירועים, הזמנות קבוצתיות וקייטרינג קטן.
+            </p>
+          </div>
+          <div class="flow">
+            <div class="flow-step">
+              <span class="step-num">1</span>
+              <div>
+                <h3>לקוח מגיע מדף או מגוגל</h3>
+                <p>הלקוח רואה פעולה ברורה: להשאיר פנייה קצרה או להתקשר.</p>
+              </div>
+            </div>
+            <div class="flow-step">
+              <span class="step-num">2</span>
+              <div>
+                <h3>הטופס אוסף רק מה שחשוב</h3>
+                <p>שם, טלפון, סוג פנייה, תאריך, כמות אנשים ודחיפות.</p>
+              </div>
+            </div>
+            <div class="flow-step">
+              <span class="step-num">3</span>
+              <div>
+                <h3>הפנייה נכנסת ללוח מעקב</h3>
+                <p>בעל העסק רואה סטטוס, מה חסר, ומה הפעולה הבאה.</p>
+              </div>
+            </div>
+            <div class="flow-step">
+              <span class="step-num">4</span>
+              <div>
+                <h3>רק אחרי זה מחליטים אם לחבר אמיתי</h3>
+                <p>הדמו חינמי. מערכת אמיתית עם חיבורים, אחסון ותחזוקה היא עבודה בתשלום.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pressure-strip" id="pressure">
+            <div class="pressure-copy">
+              <h3>הבעיה היא לא רק לענות. הבעיה היא לזכור מי מחכה.</h3>
+              <p>
+                אם נכנסות ארבע פניות בזמן לחץ, שיחה או בוט פשוט לא מספיקים. צריך לדעת מי חם, מי ביקש מחיר, מי צריך אישור בעלים, ולמי חוזרים עכשיו לפני שהוא הולך למתחרה.
+              </p>
+              <button class="button primary" type="button" data-load-pressure>הראה את זה בלוח בעל העסק</button>
+            </div>
+            <div class="pressure-grid" aria-label="למה מערכת עדיפה על בוט רגיל">
+              <div class="pressure-card">
+                <strong>טלפון מפספס שקט</strong>
+                <span>אם הלקוח מחכה כמה דקות או לא מקבל תשובה, הוא פשוט ממשיך הלאה.</span>
+              </div>
+              <div class="pressure-card">
+                <strong>בוט בלי סטטוס לא מספיק</strong>
+                <span>גם אם הוא עונה, בעל העסק עדיין לא יודע מה חם ומה נתקע.</span>
+              </div>
+              <div class="pressure-card">
+                <strong>לוח לידים יוצר שליטה</strong>
+                <span>כל פנייה מקבלת דחיפות, חסרים ופעולה הבאה. זה הסדר שהוא משלם עליו.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="lead">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2>דמו חי: פנייה נכנסת והופכת לפעולה</h2>
+            <p>
+              מלא דוגמה או שלח את הטופס. הכל נשאר בדפדפן המקומי כדי להראות איך זה נראה, בלי לשלוח שום דבר החוצה.
+            </p>
+          </div>
+
+          <div class="demo-shell">
+            <div class="panel">
+              <div class="panel-head">
+                <div>
+                  <strong>טופס פנייה ללקוח</strong>
+                  <span>מדמה לקוח שרוצה מגשי אירוח או הזמנה קבוצתית.</span>
+                </div>
+                <span class="status-chip">לקוח</span>
+              </div>
+              <form id="leadForm">
+                <div class="field-grid">
+                  <label>
+                    שם
+                    <input id="name" name="name" autocomplete="name" value="נועה לוי">
+                  </label>
+                  <label>
+                    טלפון
+                    <input id="phone" name="phone" inputmode="tel" value="050-000-0000">
+                  </label>
+                </div>
+                <div class="field-grid">
+                  <label>
+                    סוג פנייה
+                    <select id="type" name="type">
+                      <option>מגשי אירוח</option>
+                      <option>אירוע חברה</option>
+                      <option>משלוח גדול</option>
+                      <option>שאלה כללית</option>
+                    </select>
+                  </label>
+                  <label>
+                    דחיפות
+                    <select id="urgency" name="urgency">
+                      <option>השבוע</option>
+                      <option>היום</option>
+                      <option>תוך שבועיים</option>
+                      <option>לא דחוף</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="field-grid">
+                  <label>
+                    תאריך רצוי
+                    <input id="date" name="date" value="יום חמישי הקרוב">
+                  </label>
+                  <label>
+                    כמות אנשים
+                    <input id="people" name="people" inputmode="numeric" value="25">
+                  </label>
+                </div>
+                <label>
+                  מה חשוב לדעת?
+                  <textarea id="note" name="note">יש כמה טבעוניים, רוצים משהו שמתאים לישיבת צוות בבוקר.</textarea>
+                </label>
+                <div class="form-actions">
+                  <button class="button primary" type="submit" data-testid="submit-demo-lead">הכנס ללוח הדמו</button>
+                  <button class="button ghost" type="button" data-fill-demo>מלא דוגמה אחרת</button>
+                  <button class="button secondary" type="button" data-reset-demo>אפס</button>
+                </div>
+                <p class="safe-note">בדמו הזה אין חיבור ל-WhatsApp, מייל, CRM או כלי בתשלום. זו המחשה מקומית בלבד.</p>
+              </form>
+            </div>
+
+            <aside class="panel" id="owner">
+              <div class="panel-head">
+                <div>
+                  <strong>לוח בעל העסק</strong>
+                  <span>מה שהעסק מקבל במקום פנייה מפוזרת.</span>
+                </div>
+                <button class="button secondary" type="button" data-load-pressure>טען עומס לידים</button>
+              </div>
+              <div class="queue-summary" aria-label="סיכום עומס לידים">
+                <div class="queue-metric">
+                  <strong id="metricTotal">1</strong>
+                  <span>פניות במעקב</span>
+                </div>
+                <div class="queue-metric">
+                  <strong id="metricHot">1</strong>
+                  <span>חמות לחזרה</span>
+                </div>
+                <div class="queue-metric">
+                  <strong id="metricOwner">0</strong>
+                  <span>דורשות בעלים</span>
+                </div>
+              </div>
+              <div class="tracker">
+                <article class="lead-card hot" id="leadCard">
+                  <div class="lead-top">
+                    <div>
+                      <h3 id="ownerTitle">נועה לוי - מגשי אירוח</h3>
+                      <p id="ownerSubtitle">25 אנשים, יום חמישי הקרוב</p>
+                    </div>
+                    <span class="tag honey" id="ownerUrgency">השבוע</span>
+                  </div>
+                  <div class="lead-fields">
+                    <div class="data-pill">
+                      <small>טלפון</small>
+                      <span id="ownerPhone">050-000-0000</span>
+                    </div>
+                    <div class="data-pill">
+                      <small>סטטוס</small>
+                      <span>ליד חדש</span>
+                    </div>
+                    <div class="data-pill">
+                      <small>מה חסר</small>
+                      <span id="missingInfo">תקציב ואישור כמות</span>
+                    </div>
+                    <div class="data-pill">
+                      <small>רגישות</small>
+                      <span id="sensitivity">טבעונים</span>
+                    </div>
+                  </div>
+                  <div class="owner-action" id="ownerAction">
+                    פעולה הבאה: לחזור לנועה עם שתי אופציות מגשים ולשאול אם יש רגישויות נוספות.
+                  </div>
+                  <div class="tag-row">
+                    <span class="tag green">לחזור היום</span>
+                    <span class="tag plum">צריך אישור בעלים</span>
+                    <span class="tag">לא נשלח החוצה</span>
+                  </div>
+                </article>
+              </div>
+              <div class="queue-list" id="queueList" aria-label="רשימת פניות עומס">
+                <div class="queue-row">
+                  <div>
+                    <strong>נועה לוי - מגשי אירוח</strong>
+                    <span>ליד חם: צריך מחיר וזמינות אחרי אישור בעלים.</span>
+                  </div>
+                  <span class="tag honey">לחזור היום</span>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-inner preview-band">
+          <img src="live-site-catering-menu.png" alt="צילום מסך תפריט אירוח מהאתר הקיים">
+          <div>
+            <h2>הערך הוא לא עוד עמוד. הערך הוא סדר בפנייה.</h2>
+            <p>
+              אם בעל העסק אוהב את הדמו, השלב הבא הוא לא להגיד "זה חינם לתמיד". השלב הבא הוא פיילוט מוגבל לשבוע שמוכיח אם זה עושה סדר בפניות. דומיין, אחסון וחיבור אמיתי נשארים בבעלות העסק והם חלק מההשקעה, לא טריק מכירה.
+            </p>
+          </div>
+        </div>
+
+        <div class="comparison" aria-label="השוואת ערך">
+          <div class="comparison-item">
+            <strong>הדמו החינמי</strong>
+            <p>מראה איך הלקוח משאיר פנייה ואיך בעל העסק מקבל תמונת מצב. אין חיבורים ואין שליחה.</p>
+          </div>
+          <div class="comparison-item">
+            <strong>פיילוט שבוע</strong>
+            <p>מוגבל לסוג פנייה אחד, למשל משלוחים או מגשי אירוח. אם זה עושה סדר, ממשיכים בתשלום.</p>
+          </div>
+          <div class="comparison-item">
+            <strong>מערכת מלאה</strong>
+            <p>דף/אתר, סוכן פניות, מעקב, שיפורים, דוחות ותחזוקה חודשית לפי צורך העסק.</p>
+          </div>
+        </div>
+        <div class="pilot-note">
+          פיילוט שבוע: מתחילים על סוג פנייה אחד בלבד, למשל משלוחים או מגשי אירוח. אם אחרי שבוע רואים שזה עושה סדר, חוסך זמן ומונע איבוד פניות, משאירים את זה כמערכת חודשית. אם לא, עוצרים.
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const examples = [
+      {
+        name: "נועה לוי",
+        phone: "050-000-0000",
+        type: "מגשי אירוח",
+        urgency: "השבוע",
+        date: "יום חמישי הקרוב",
+        people: "25",
+        note: "יש כמה טבעוניים, רוצים משהו שמתאים לישיבת צוות בבוקר.",
+        missing: "תקציב ואישור כמות",
+        sensitivity: "טבעונים",
+        action: "לחזור לנועה עם שתי אופציות מגשים ולשאול אם יש רגישויות נוספות."
+      },
+      {
+        name: "אבי כהן",
+        phone: "052-000-0000",
+        type: "אירוע חברה",
+        urgency: "היום",
+        date: "שלישי הבא",
+        people: "40",
+        note: "צריך כיבוד מתוק ומלוח אחרי ישיבה. מעדיפים לקבל הצעת מחיר עוד היום.",
+        missing: "כתובת מדויקת ושעת הגעה",
+        sensitivity: "לא צויין",
+        action: "לחזור היום, לאסוף כתובת ושעה, ואז לשלוח הצעה מסודרת לאישור."
+      },
+      {
+        name: "מיכל שרון",
+        phone: "054-000-0000",
+        type: "משלוח גדול",
+        urgency: "תוך שבועיים",
+        date: "סוף החודש",
+        people: "18",
+        note: "מחפשת פתרון לארוחת בוקר משפחתית. רוצה לדעת מה אפשר להזמין מראש.",
+        missing: "בחירת מוצרים ותקציב",
+        sensitivity: "לשאול על אלרגיות",
+        action: "להציע 2 חבילות לפי כמות אנשים ולסגור פרטים אחרי אישור."
+      }
+    ];
+
+    const pressureLeads = [
+      {
+        name: "נועה לוי",
+        phone: "050-000-0000",
+        type: "מגשי אירוח",
+        urgency: "היום",
+        date: "יום חמישי הקרוב",
+        people: "25",
+        missing: "תקציב ואישור כמות",
+        sensitivity: "טבעונים",
+        action: "לחזור היום עם שתי אופציות מגשים ולבדוק רגישויות.",
+        status: "ליד חם",
+        ownerRequired: false,
+        hot: true
+      },
+      {
+        name: "אבי כהן",
+        phone: "052-000-0000",
+        type: "אירוע חברה",
+        urgency: "היום",
+        date: "שלישי הבא",
+        people: "40",
+        missing: "כתובת, שעה ותקציב",
+        sensitivity: "לא צויין",
+        action: "לחזור לפני סוף היום, כי זו פנייה עם ערך גבוה.",
+        status: "גבוה",
+        ownerRequired: false,
+        hot: true
+      },
+      {
+        name: "מיכל שרון",
+        phone: "054-000-0000",
+        type: "משלוח גדול",
+        urgency: "השבוע",
+        date: "סוף החודש",
+        people: "18",
+        missing: "בחירת מוצרים ודמי משלוח",
+        sensitivity: "לשאול על אלרגיות",
+        action: "להשלים פרטים לפני הצעת מחיר.",
+        status: "איסוף פרטים",
+        ownerRequired: false,
+        hot: true
+      },
+      {
+        name: "לקוח בלי שם",
+        phone: "לא נמסר",
+        type: "כשרות/אלרגנים",
+        urgency: "היום",
+        date: "לא צויין",
+        people: "לא צויין",
+        missing: "טלפון וניסוח מאושר",
+        sensitivity: "רגיש - לא לענות לבד",
+        action: "להעביר לבעל העסק. הסוכן לא מתחייב על כשרות או אלרגנים.",
+        status: "בעלים נדרש",
+        ownerRequired: true,
+        hot: false
+      }
+    ];
+
+    let exampleIndex = 0;
+
+    const form = document.getElementById("leadForm");
+    const toast = document.getElementById("toast");
+
+    function value(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function setValue(id, nextValue) {
+      document.getElementById(id).value = nextValue;
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("visible");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => {
+        toast.classList.remove("visible");
+      }, 3200);
+    }
+
+    function buildLeadFromForm() {
+      return {
+        name: value("name") || "לקוח חדש",
+        phone: value("phone") || "לא צויין",
+        type: value("type") || "פנייה",
+        urgency: value("urgency") || "לא דחוף",
+        date: value("date") || "לא צויין",
+        people: value("people") || "לא צויין",
+        note: value("note") || "",
+        missing: "תקציב / שעה / אישור כמות",
+        sensitivity: "לשאול בשיחה",
+        action: "לחזור ללקוח, להשלים פרטים חסרים, ואז לשלוח הצעה מסודרת.",
+        status: "ליד חדש",
+        hot: true,
+        ownerRequired: false
+      };
+    }
+
+    function renderQueue(leads) {
+      const queue = leads && leads.length ? leads : [buildLeadFromForm()];
+      const total = queue.length;
+      const hot = queue.filter((lead) => lead.hot || lead.urgency === "היום" || lead.urgency === "השבוע").length;
+      const owner = queue.filter((lead) => lead.ownerRequired).length;
+      document.getElementById("metricTotal").textContent = total;
+      document.getElementById("metricHot").textContent = hot;
+      document.getElementById("metricOwner").textContent = owner;
+      document.getElementById("queueList").innerHTML = queue.map((lead) => {
+        const tagClass = lead.ownerRequired ? "plum" : (lead.hot ? "honey" : "green");
+        const tagText = lead.ownerRequired ? "בעלים" : (lead.hot ? "חם" : "מעקב");
+        return `
+          <div class="queue-row">
+            <div>
+              <strong>${lead.name} - ${lead.type}</strong>
+              <span>${lead.status || "פנייה"}: ${lead.action}</span>
+            </div>
+            <span class="tag ${tagClass}">${tagText}</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function updateOwnerView(source, options = {}) {
+      const lead = source || {
+        ...buildLeadFromForm()
+      };
+
+      const peopleText = lead.people ? `${lead.people} אנשים` : "כמות לא צוינה";
+      document.getElementById("ownerTitle").textContent = `${lead.name} - ${lead.type}`;
+      document.getElementById("ownerSubtitle").textContent = `${peopleText}, ${lead.date}`;
+      document.getElementById("ownerPhone").textContent = lead.phone;
+      document.getElementById("ownerUrgency").textContent = lead.urgency;
+      document.getElementById("missingInfo").textContent = lead.missing;
+      document.getElementById("sensitivity").textContent = lead.sensitivity;
+      document.getElementById("ownerAction").textContent = `פעולה הבאה: ${lead.action}`;
+
+      const card = document.getElementById("leadCard");
+      card.classList.toggle("hot", lead.urgency === "היום" || lead.urgency === "השבוע");
+      if (!options.keepQueue) {
+        renderQueue([lead]);
+      }
+    }
+
+    function fillExample() {
+      exampleIndex = (exampleIndex + 1) % examples.length;
+      const next = examples[exampleIndex];
+      setValue("name", next.name);
+      setValue("phone", next.phone);
+      setValue("type", next.type);
+      setValue("urgency", next.urgency);
+      setValue("date", next.date);
+      setValue("people", next.people);
+      setValue("note", next.note);
+      updateOwnerView(next);
+      showToast("הדוגמה עודכנה בלוח הדמו. עדיין אין שליחה אמיתית.");
+    }
+
+    function loadPressureDemo() {
+      renderQueue(pressureLeads);
+      updateOwnerView(pressureLeads[0], { keepQueue: true });
+      document.getElementById("owner").scrollIntoView({ behavior: "smooth", block: "center" });
+      showToast("נטענו 4 פניות עומס. עכשיו רואים למה צריך סטטוס ופעולה הבאה, לא רק מענה בוט.");
+    }
+
+    function resetDemo() {
+      const first = examples[0];
+      setValue("name", first.name);
+      setValue("phone", first.phone);
+      setValue("type", first.type);
+      setValue("urgency", first.urgency);
+      setValue("date", first.date);
+      setValue("people", first.people);
+      setValue("note", first.note);
+      updateOwnerView(first);
+      showToast("הדמו אופס לדוגמה הראשונית.");
+    }
+
+    document.querySelectorAll("[data-fill-demo]").forEach((button) => {
+      button.addEventListener("click", fillExample);
+    });
+
+    document.querySelectorAll("[data-load-pressure]").forEach((button) => {
+      button.addEventListener("click", loadPressureDemo);
+    });
+
+    document.querySelector("[data-reset-demo]").addEventListener("click", resetDemo);
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      updateOwnerView();
+      showToast("הפנייה נכנסה ללוח הדמו בלבד. לא נשלח WhatsApp, מייל או CRM.");
+      document.getElementById("owner").scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    updateOwnerView(examples[0]);
+  </script>
+</body>
+</html>
