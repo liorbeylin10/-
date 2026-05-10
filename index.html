@@ -339,41 +339,103 @@
     }
 
     .hero-gallery {
-      display: grid;
-      gap: 15px;
-      justify-items: start;
-    }
-
-    .dish-pill {
       position: relative;
-      width: 128px;
-      min-height: 128px;
-      border-radius: 28px;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.48);
-      background: #111;
-      box-shadow: 0 26px 56px rgba(0, 0, 0, 0.35);
-      transform: rotate(-2deg);
+      display: grid;
+      justify-items: center;
+      align-items: center;
+      min-height: 420px;
+      perspective: 1000px;
     }
 
-    .dish-pill:nth-child(2) {
-      width: 104px;
-      min-height: 104px;
-      margin-inline-start: 54px;
-      transform: rotate(5deg);
+    .motion-plate {
+      --rx: 0deg;
+      --ry: 0deg;
+      --spin: 0deg;
+      position: relative;
+      width: min(340px, 28vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 9px solid rgba(255, 255, 255, 0.72);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08), transparent 62%),
+        url("live-site-home.png") center / cover no-repeat;
+      box-shadow: 0 36px 90px rgba(0, 0, 0, 0.42), inset 0 0 0 1px rgba(255, 255, 255, 0.24);
+      transform: rotateX(var(--rx)) rotateY(var(--ry)) rotate(var(--spin));
+      transition: transform 180ms ease-out;
+      will-change: transform;
     }
 
-    .dish-pill:nth-child(3) {
+    .motion-plate::before {
+      content: "";
+      position: absolute;
+      inset: -23px;
+      border: 2px solid rgba(255, 107, 0, 0.38);
+      border-radius: 50%;
+      border-inline-start-color: rgba(255, 255, 255, 0.52);
+      border-block-end-color: rgba(255, 255, 255, 0.2);
+      animation: plate-spin 15s linear infinite;
+      animation-play-state: paused;
+    }
+
+    .motion-plate.moving::before {
+      animation-play-state: running;
+    }
+
+    .motion-plate::after {
+      content: "מסלול פנייה חכם";
+      position: absolute;
+      inset-inline: 30px;
+      inset-block-end: 26px;
+      border-radius: 999px;
+      background: rgba(19, 9, 5, 0.82);
+      color: #fff;
+      padding: 10px 14px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 1000;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+    }
+
+    .orbit-card {
+      position: absolute;
+      display: grid;
+      place-items: center;
       width: 118px;
       min-height: 118px;
-      transform: rotate(-6deg);
+      border-radius: 30px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.56);
+      background: #111;
+      box-shadow: 0 26px 56px rgba(0, 0, 0, 0.35);
     }
 
-    .dish-pill img {
+    .orbit-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       min-height: inherit;
+    }
+
+    .orbit-card.one {
+      inset-block-start: 16px;
+      inset-inline-start: -24px;
+      transform: rotate(-7deg);
+    }
+
+    .orbit-card.two {
+      inset-block-end: 18px;
+      inset-inline-start: 18px;
+      transform: rotate(6deg);
+    }
+
+    .orbit-card.three {
+      inset-block-end: 38%;
+      inset-inline-end: -18px;
+      transform: rotate(-3deg);
+    }
+
+    @keyframes plate-spin {
+      to { transform: rotate(360deg); }
     }
 
     .screen-share-bar {
@@ -446,6 +508,88 @@
       color: var(--coffee);
       font-size: 16px;
       line-height: 1.25;
+    }
+
+    .smart-action-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-block-start: 16px;
+    }
+
+    .action-card {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      align-content: space-between;
+      min-height: 176px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 24px;
+      background: #160a05;
+      box-shadow: 0 24px 70px rgba(54, 28, 17, 0.16);
+      color: #fff;
+      padding: 18px;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .action-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, rgba(19, 9, 5, 0.2), rgba(19, 9, 5, 0.76));
+    }
+
+    .action-card img {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 260ms ease;
+    }
+
+    .action-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 30px 80px rgba(54, 28, 17, 0.24);
+    }
+
+    .action-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .action-card span {
+      width: max-content;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--coffee);
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 1000;
+      letter-spacing: 0;
+    }
+
+    .action-card strong {
+      display: block;
+      max-width: 11ch;
+      color: #fff;
+      font-size: 21px;
+      line-height: 1.05;
+      font-weight: 1000;
+      text-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+    }
+
+    .action-card.system-card {
+      background:
+        radial-gradient(circle at 18% 22%, rgba(255, 197, 90, 0.28), transparent 34%),
+        radial-gradient(circle at 80% 78%, rgba(0, 115, 103, 0.34), transparent 40%),
+        linear-gradient(135deg, #1a0d06, #0f211d);
+    }
+
+    .action-card.system-card::after {
+      background: linear-gradient(180deg, rgba(19, 9, 5, 0.08), rgba(19, 9, 5, 0.38));
     }
 
     .section {
@@ -1149,23 +1293,39 @@
       }
 
       .hero-gallery {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        min-height: 260px;
       }
 
-      .dish-pill,
-      .dish-pill:nth-child(2),
-      .dish-pill:nth-child(3) {
-        width: 96px;
-        min-height: 96px;
-        margin: 0;
+      .motion-plate {
+        width: min(260px, 58vw);
+      }
+
+      .orbit-card {
+        width: 82px;
+        min-height: 82px;
+        border-radius: 22px;
+      }
+
+      .orbit-card.one {
+        inset-block-start: 4px;
+        inset-inline-start: 18px;
+      }
+
+      .orbit-card.two {
+        inset-block-end: 6px;
+        inset-inline-start: 36px;
+      }
+
+      .orbit-card.three {
+        inset-block-end: 34%;
+        inset-inline-end: 8px;
       }
 
       .customer-grid,
       .reviews-grid,
       .faq-grid,
-      .seo-strip {
+      .seo-strip,
+      .smart-action-grid {
         grid-template-columns: 1fr 1fr;
       }
 
@@ -1212,6 +1372,7 @@
       .reviews-grid,
       .faq-grid,
       .seo-strip,
+      .smart-action-grid,
       .field-row {
         grid-template-columns: 1fr;
       }
@@ -1227,6 +1388,37 @@
 
       .screen-share-bar {
         margin-block-start: 0;
+      }
+
+      .hero-gallery {
+        min-height: 170px;
+        margin-block-start: 18px;
+      }
+
+      .motion-plate {
+        width: 154px;
+        border-width: 5px;
+        transform: none !important;
+      }
+
+      .motion-plate::before {
+        inset: -12px;
+        animation: none;
+      }
+
+      .motion-plate::after {
+        inset-inline: 16px;
+        inset-block-end: 14px;
+        padding: 6px 8px;
+        font-size: 11px;
+      }
+
+      .orbit-card {
+        display: none;
+      }
+
+      .action-card {
+        min-height: 150px;
       }
 
       .share-panel,
@@ -1314,9 +1506,10 @@
           </div>
         </div>
         <div class="hero-gallery" aria-hidden="true">
-          <figure class="dish-pill"><img src="live-site-catering-menu.png" alt=""></figure>
-          <figure class="dish-pill"><img src="live-site-menu-delivery.png" alt=""></figure>
-          <figure class="dish-pill"><img src="live-site-home.png" alt=""></figure>
+          <div class="motion-plate" id="motion-plate"></div>
+          <figure class="orbit-card one"><img src="live-site-catering-menu.png" alt=""></figure>
+          <figure class="orbit-card two"><img src="live-site-home.png" alt=""></figure>
+          <figure class="orbit-card three"><img src="live-site-home.png" alt=""></figure>
         </div>
       </div>
     </section>
@@ -1332,6 +1525,27 @@
           <div class="share-step"><span>2</span><b>הוא שואל או משאיר פרטים</b></div>
           <div class="share-step"><span>3</span><b>העסק מקבל ליד מסודר</b></div>
         </div>
+      </div>
+      <div class="smart-action-grid" aria-label="מסלולי פעולה מהירים באתר">
+        <a class="action-card" href="#delivery">
+          <img src="live-site-home.png" alt="">
+          <span>01</span>
+          <strong>משלוח מסודר</strong>
+        </a>
+        <a class="action-card" href="#delivery">
+          <img src="live-site-catering-menu.png" alt="">
+          <span>02</span>
+          <strong>מגשי אירוח</strong>
+        </a>
+        <a class="action-card" href="tel:+97248580595">
+          <img src="live-site-home.png" alt="">
+          <span>03</span>
+          <strong>שיחה מהירה</strong>
+        </a>
+        <a class="action-card system-card" href="#smart-system">
+          <span>04</span>
+          <strong>סוכן שמסדר ליד</strong>
+        </a>
       </div>
     </section>
 
@@ -1359,7 +1573,7 @@
           </div>
         </article>
         <article class="customer-card">
-          <img src="live-site-menu-delivery.png" alt="תפריט משלוחים">
+          <img src="live-site-home.png" alt="תפריט משלוחים">
           <div class="customer-card-body">
             <h3>משלוחים בלי בלגן</h3>
             <p>במקום הודעות מפוזרות: כתובת, שעה, סוג הזמנה והערות מגיעים כמקשה אחת.</p>
@@ -1449,7 +1663,7 @@
       <div class="wrap delivery-layout">
         <div class="media-stack" aria-label="תמונות אוכל ומשלוחים">
           <figure><img src="live-site-catering-menu.png" alt="מגשי אירוח של כצפיחית בדבש"></figure>
-          <figure><img src="live-site-menu-delivery.png" alt="תפריט ומשלוחים"></figure>
+          <figure><img src="live-site-home.png" alt="תפריט ומשלוחים"></figure>
         </div>
         <div>
           <span class="section-kicker">משלוחים ומגשי אירוח</span>
@@ -1621,6 +1835,30 @@
   </nav>
 
   <script>
+    const motionPlate = document.getElementById("motion-plate");
+    const hero = document.querySelector(".hero");
+    if (motionPlate && hero) {
+      let spin = 0;
+      let idleTimer;
+      hero.addEventListener("mousemove", (event) => {
+        const rect = motionPlate.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        spin += 0.2;
+        motionPlate.style.setProperty("--ry", `${x * 14}deg`);
+        motionPlate.style.setProperty("--rx", `${-y * 14}deg`);
+        motionPlate.style.setProperty("--spin", `${spin}deg`);
+        motionPlate.classList.add("moving");
+        window.clearTimeout(idleTimer);
+        idleTimer = window.setTimeout(() => motionPlate.classList.remove("moving"), 420);
+      });
+      hero.addEventListener("mouseleave", () => {
+        motionPlate.style.setProperty("--rx", "0deg");
+        motionPlate.style.setProperty("--ry", "0deg");
+        motionPlate.classList.remove("moving");
+      });
+    }
+
     const leadForm = document.getElementById("lead-form");
     const demoResult = document.getElementById("demo-result");
 
