@@ -1,0 +1,1097 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>כצפיחית בדבש | דמו לבעל העסק</title>
+  <meta name="description" content="דמו שיתוף מסך לבעל עסק: איך אתר חכם הופך פניות לא מסודרות ללידים ברורים עם סטטוס ופעולה הבאה.">
+  <style>
+    :root {
+      --night: #120804;
+      --espresso: #261007;
+      --coffee: #3b1d10;
+      --cream: #fff7e9;
+      --paper: #fffdf7;
+      --honey: #ff8a00;
+      --honey-soft: #ffd494;
+      --green: #0f6f4f;
+      --mint: #e7f7ee;
+      --ink: #27180f;
+      --muted: #6f645c;
+      --line: rgba(59, 29, 16, 0.14);
+      --white: #ffffff;
+      --shadow: 0 28px 90px rgba(30, 11, 4, 0.22);
+      --radius: 26px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans Hebrew", "Assistant", "Heebo", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.65;
+      letter-spacing: 0;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; letter-spacing: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    .ltr {
+      direction: ltr;
+      unicode-bidi: isolate;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    .screen-header {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 30;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(18, 8, 4, 0.88);
+      color: #fff;
+      backdrop-filter: blur(16px);
+    }
+
+    .screen-nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 1000;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffe2ac, #ff8a00 52%, #7b2f09);
+      box-shadow: 0 16px 36px rgba(255, 138, 0, 0.35);
+    }
+
+    .brand small {
+      display: block;
+      margin-block-start: -4px;
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--honey);
+      color: #fff;
+      padding: 0 20px;
+      font-size: 14px;
+      font-weight: 1000;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(255, 138, 0, 0.28);
+    }
+
+    .btn.secondary {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      box-shadow: none;
+    }
+
+    .btn.dark {
+      background: var(--night);
+      color: #fff;
+      box-shadow: 0 18px 42px rgba(18, 8, 4, 0.2);
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 72px);
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(18, 8, 4, 0.96), rgba(18, 8, 4, 0.82) 45%, rgba(18, 8, 4, 0.38)),
+        url("live-site-home.png") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      inset-block-end: 0;
+      height: 160px;
+      background: linear-gradient(180deg, transparent, var(--paper));
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.03fr) minmax(360px, 0.97fr);
+      gap: 44px;
+      align-items: center;
+      padding-block: 78px 122px;
+    }
+
+    .demo-label {
+      width: max-content;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--honey-soft);
+      padding: 8px 13px;
+      font-size: 13px;
+      font-weight: 1000;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      max-width: 760px;
+      margin-block-start: 20px;
+      color: #fff;
+      font-size: clamp(52px, 6.5vw, 98px);
+      line-height: 0.92;
+      font-weight: 1000;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--honey);
+    }
+
+    .hero-copy p {
+      max-width: 720px;
+      margin-block-start: 24px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: clamp(18px, 1.9vw, 25px);
+      font-weight: 800;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-block-start: 34px;
+    }
+
+    .focus-card {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 34px;
+      background: rgba(255, 253, 247, 0.1);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .focus-image {
+      min-height: 260px;
+      background:
+        linear-gradient(180deg, rgba(18, 8, 4, 0.02), rgba(18, 8, 4, 0.42)),
+        url("live-site-catering-menu.png") center / cover no-repeat;
+    }
+
+    .focus-body {
+      display: grid;
+      gap: 14px;
+      padding: 24px;
+      background: rgba(18, 8, 4, 0.82);
+    }
+
+    .focus-row {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      align-items: center;
+      color: #fff;
+    }
+
+    .focus-row span {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--honey);
+      color: #fff;
+      font-weight: 1000;
+    }
+
+    .focus-row strong {
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .stage-strip {
+      position: relative;
+      z-index: 3;
+      margin-block-start: -74px;
+    }
+
+    .stage-panel {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .stage-item {
+      min-height: 132px;
+      display: grid;
+      align-content: center;
+      gap: 8px;
+      padding: 24px;
+      border-inline-start: 1px solid var(--line);
+    }
+
+    .stage-item:last-child {
+      border-inline-start: 0;
+    }
+
+    .stage-item b {
+      color: var(--coffee);
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .stage-item span {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .section {
+      padding-block: 92px;
+    }
+
+    .section.dark {
+      color: #fff;
+      background:
+        radial-gradient(circle at 16% 20%, rgba(255, 138, 0, 0.22), transparent 34%),
+        linear-gradient(135deg, var(--night), #070302 68%, #09140f);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-block-end: 32px;
+    }
+
+    .section-head h2 {
+      max-width: 760px;
+      color: var(--coffee);
+      font-size: clamp(42px, 5vw, 76px);
+      line-height: 0.98;
+      font-weight: 1000;
+    }
+
+    .section.dark .section-head h2 {
+      color: #fff;
+    }
+
+    .section-head p {
+      max-width: 440px;
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .section.dark .section-head p {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .live-demo {
+      display: grid;
+      grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: #fff;
+      box-shadow: 0 24px 70px rgba(48, 20, 8, 0.1);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      background: #fffaf0;
+    }
+
+    .panel-head strong {
+      color: var(--coffee);
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .panel-head span {
+      border-radius: 999px;
+      background: var(--mint);
+      color: var(--green);
+      padding: 7px 11px;
+      font-size: 12px;
+      font-weight: 1000;
+      white-space: nowrap;
+    }
+
+    .customer-preview {
+      display: grid;
+      gap: 18px;
+      padding: 22px;
+    }
+
+    .mini-site {
+      overflow: hidden;
+      border-radius: 24px;
+      background: var(--night);
+      color: #fff;
+    }
+
+    .mini-hero {
+      min-height: 232px;
+      display: grid;
+      align-content: end;
+      padding: 22px;
+      background:
+        linear-gradient(180deg, rgba(18, 8, 4, 0.15), rgba(18, 8, 4, 0.78)),
+        url("live-site-home.png") center / cover no-repeat;
+    }
+
+    .mini-hero h3 {
+      max-width: 440px;
+      color: #fff;
+      font-size: 32px;
+      line-height: 0.98;
+      font-weight: 1000;
+    }
+
+    .mini-actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-block-start: 16px;
+    }
+
+    .lead-choice {
+      min-height: 76px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 1000;
+    }
+
+    .lead-choice.active {
+      background: var(--honey);
+      border-color: transparent;
+    }
+
+    .fake-form {
+      display: grid;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--paper);
+      padding: 16px;
+    }
+
+    .fake-form label {
+      display: grid;
+      gap: 5px;
+      color: var(--coffee);
+      font-size: 13px;
+      font-weight: 1000;
+    }
+
+    .fake-form input,
+    .fake-form textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      padding: 12px 14px;
+      outline: 0;
+    }
+
+    .fake-form textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .owner-view {
+      display: grid;
+      align-content: start;
+      gap: 18px;
+      padding: 22px;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .compare-card {
+      min-height: 164px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .compare-card.bad {
+      background: #fff4ef;
+      border-color: rgba(160, 49, 22, 0.18);
+    }
+
+    .compare-card.good {
+      background: #f1fbf4;
+      border-color: rgba(15, 111, 79, 0.18);
+    }
+
+    .compare-card small {
+      display: block;
+      margin-block-end: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 1000;
+    }
+
+    .compare-card strong {
+      display: block;
+      color: var(--coffee);
+      font-size: 22px;
+      line-height: 1.15;
+      font-weight: 1000;
+    }
+
+    .compare-card p {
+      margin-block-start: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .lead-board {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: #fff;
+    }
+
+    .board-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 16px 18px;
+      background: var(--night);
+      color: #fff;
+    }
+
+    .status-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 999px;
+      background: rgba(223, 246, 234, 0.12);
+      color: #dff6ea;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 1000;
+    }
+
+    .status-dot::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #44d77f;
+      box-shadow: 0 0 0 5px rgba(68, 215, 127, 0.16);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: right;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      background: #fffaf0;
+      font-size: 12px;
+      font-weight: 1000;
+    }
+
+    td {
+      color: var(--coffee);
+      font-weight: 850;
+    }
+
+    tr.flash {
+      animation: flash 900ms ease;
+    }
+
+    @keyframes flash {
+      0% { background: #fff0d8; }
+      100% { background: #fff; }
+    }
+
+    .tag {
+      display: inline-flex;
+      border-radius: 999px;
+      background: var(--mint);
+      color: var(--green);
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 1000;
+      white-space: nowrap;
+    }
+
+    .agent-box {
+      display: grid;
+      gap: 10px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 138, 0, 0.22), transparent 34%),
+        linear-gradient(135deg, #1b0c06, #0d1712);
+      color: #fff;
+      padding: 20px;
+    }
+
+    .agent-box strong {
+      font-size: 22px;
+      line-height: 1.15;
+    }
+
+    .agent-box p {
+      color: rgba(255, 255, 255, 0.78);
+      font-weight: 800;
+    }
+
+    .agent-answer {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 14px;
+      font-weight: 900;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .value-card {
+      min-height: 220px;
+      display: grid;
+      align-content: space-between;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 24px;
+    }
+
+    .value-card span {
+      color: var(--honey-soft);
+      font-size: 13px;
+      font-weight: 1000;
+    }
+
+    .value-card strong {
+      color: #fff;
+      font-size: 28px;
+      line-height: 1.1;
+      font-weight: 1000;
+    }
+
+    .value-card p {
+      color: rgba(255, 255, 255, 0.72);
+      font-weight: 800;
+    }
+
+    .close-panel {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 22px;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 34px;
+      background:
+        linear-gradient(90deg, rgba(18, 8, 4, 0.88), rgba(18, 8, 4, 0.5)),
+        url("live-site-catering-menu.png") center / cover no-repeat;
+      color: #fff;
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .close-panel h2 {
+      color: #fff;
+      font-size: clamp(38px, 5vw, 70px);
+      line-height: 0.98;
+      font-weight: 1000;
+    }
+
+    .close-panel p {
+      margin-block-start: 16px;
+      max-width: 620px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 19px;
+      font-weight: 850;
+    }
+
+    .next-box {
+      display: grid;
+      gap: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 22px;
+      backdrop-filter: blur(8px);
+    }
+
+    .next-box b {
+      color: #fff;
+      font-size: 21px;
+    }
+
+    .next-box span {
+      color: rgba(255, 255, 255, 0.78);
+      font-weight: 800;
+    }
+
+    .demo-note {
+      margin-block-start: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .live-demo,
+      .close-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-panel,
+      .value-grid,
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-item {
+        border-inline-start: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .stage-item:last-child {
+        border-bottom: 0;
+      }
+
+      .nav-actions {
+        display: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .screen-nav {
+        min-height: 64px;
+      }
+
+      .brand small {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid {
+        gap: 22px;
+        padding-block: 48px 96px;
+      }
+
+      h1 {
+        font-size: clamp(42px, 14vw, 68px);
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .focus-image {
+        min-height: 190px;
+      }
+
+      .stage-strip {
+        margin-block-start: -54px;
+      }
+
+      .section {
+        padding-block: 64px;
+      }
+
+      .section-head {
+        display: grid;
+      }
+
+      .section-head h2,
+      .close-panel h2 {
+        font-size: clamp(34px, 11vw, 52px);
+      }
+
+      .mini-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-head {
+        display: grid;
+      }
+
+      .lead-board {
+        overflow-x: auto;
+      }
+
+      th,
+      td {
+        white-space: nowrap;
+      }
+
+      .close-panel {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="screen-header">
+    <div class="wrap screen-nav">
+      <a class="brand" href="#top" aria-label="דמו בעל העסק">
+        <span class="brand-mark">ק</span>
+        <span>כצפיחית בדבש <small>דמו מסך לבעל העסק</small></span>
+      </a>
+      <div class="nav-actions">
+        <a class="btn secondary" href="index.html" target="_blank" rel="noreferrer">לראות את האתר ללקוח</a>
+        <a class="btn" href="#live-demo">להפעיל דמו ליד</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="פתיחת דמו לבעל עסק">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="demo-label">שיתוף מסך: מה קורה לפנייה מרגע שהלקוח נכנס</div>
+          <h1>לא עוד אתר יפה. <span>מסלול שמכניס סדר בפניות.</span></h1>
+          <p>אני לא מראה לך “אתר”. אני מראה איך לקוח שרוצה משלוח, מגש אירוח או שאלה לא נופל בין שיחות, הודעות ולחץ בעסק.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#live-demo">תראה לי ליד נכנס</a>
+            <a class="btn secondary" href="#value">מה בעל העסק מקבל</a>
+          </div>
+        </div>
+
+        <aside class="focus-card" aria-label="סיפור הדמו">
+          <div class="focus-image"></div>
+          <div class="focus-body">
+            <div class="focus-row"><span>1</span><strong>הלקוח רואה אוכל, שירותים ואפשרות פנייה ברורה.</strong></div>
+            <div class="focus-row"><span>2</span><strong>הסוכן שואל את הפרטים שצריך בלי להעמיס על העובדים.</strong></div>
+            <div class="focus-row"><span>3</span><strong>בעל העסק מקבל ליד עם סטטוס ופעולה הבאה.</strong></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="stage-strip wrap" aria-label="שלבי הדמו">
+      <div class="stage-panel">
+        <div class="stage-item">
+          <b>קודם רואים את צד הלקוח</b>
+          <span>מה גורם ללקוח להבין מהר מה לעשות.</span>
+        </div>
+        <div class="stage-item">
+          <b>אחר כך מפעילים ליד חי</b>
+          <span>בלי הודעה אמיתית ובלי סיכון, רק סימולציה נקייה.</span>
+        </div>
+        <div class="stage-item">
+          <b>בסוף רואים את צד העסק</b>
+          <span>שם, טלפון, צורך, עדיפות, פעולה הבאה.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="live-demo">
+      <div class="section-head">
+        <div>
+          <h2>הדמו החי: פנייה אחת נכנסת, והעסק מבין מה לעשות איתה.</h2>
+        </div>
+        <p>לחץ על סוג פנייה, מלא או השאר את הדוגמה, ואז הפעל. זה יראה לבעל העסק את ההבדל בין “עוד הודעה” לבין ליד מסודר.</p>
+      </div>
+
+      <div class="live-demo">
+        <article class="panel">
+          <div class="panel-head">
+            <strong>מה הלקוח רואה באתר</strong>
+            <span>מסלול ברור</span>
+          </div>
+          <div class="customer-preview">
+            <div class="mini-site">
+              <div class="mini-hero">
+                <h3>רוצים להזמין או לשאול משהו?</h3>
+                <div class="mini-actions" role="group" aria-label="סוגי פנייה">
+                  <button class="lead-choice active" type="button" data-kind="משלוח">משלוח עכשיו</button>
+                  <button class="lead-choice" type="button" data-kind="מגש אירוח">מגש אירוח</button>
+                  <button class="lead-choice" type="button" data-kind="שאלה">שאלה קצרה</button>
+                </div>
+              </div>
+            </div>
+
+            <form class="fake-form" id="demo-form">
+              <label>שם מלא
+                <input name="name" value="דניאל" autocomplete="off">
+              </label>
+              <label>טלפון
+                <input class="ltr" name="phone" value="052-1111111" autocomplete="off">
+              </label>
+              <label>מה צריך?
+                <textarea name="details">מגש אירוח ל-18 אנשים מחר בבוקר, צריך לדעת מחיר וזמינות.</textarea>
+              </label>
+              <button class="btn dark" type="submit">הכנס את הפנייה ללוח העסק</button>
+            </form>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <strong>מה בעל העסק מקבל</strong>
+            <span>לא עוד הודעה שנעלמת</span>
+          </div>
+          <div class="owner-view">
+            <div class="comparison">
+              <div class="compare-card bad">
+                <small>בלי המערכת</small>
+                <strong>טלפון או הודעה בלי סדר.</strong>
+                <p>מי פנה, מה הוא רצה, האם חזרנו אליו, ומה השלב הבא - הכול נשאר בראש או בוואטסאפ.</p>
+              </div>
+              <div class="compare-card good">
+                <small>עם המערכת</small>
+                <strong>ליד מסודר תוך שניות.</strong>
+                <p>העסק יודע למי לחזור, מה להציע, ומה לא לפספס גם ביום עמוס.</p>
+              </div>
+            </div>
+
+            <div class="lead-board">
+              <div class="board-top">
+                <strong>לוח פניות לדוגמה</strong>
+                <span class="status-dot">מעקב פעיל</span>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ליד</th>
+                    <th>מה ביקש?</th>
+                    <th>סטטוס</th>
+                    <th>פעולה הבאה</th>
+                  </tr>
+                </thead>
+                <tbody id="lead-table">
+                  <tr>
+                    <td>מורן<br><span class="ltr">054-0000000</span></td>
+                    <td>משלוח למשרד</td>
+                    <td><span class="tag">חדש</span></td>
+                    <td>לאשר אזור ושעת משלוח</td>
+                  </tr>
+                  <tr>
+                    <td>אורי<br><span class="ltr">050-0000000</span></td>
+                    <td>שאלה על איסוף עצמי</td>
+                    <td><span class="tag">קל לסגירה</span></td>
+                    <td>לשלוח תפריט ולבקש שעה</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="agent-box">
+              <strong>הסוכן לא מחליף את בעל העסק. הוא מסנן ומסדר.</strong>
+              <p>שאלות רגילות מקבלות מענה. פניות רציניות מגיעות לבעל העסק עם תקציר.</p>
+              <div class="agent-answer" id="agent-answer">לדוגמה: “מעולה, כדי לתת תשובה נכונה צריך כמות אנשים, שעה, תקציב משוער וטלפון. אני מעביר את זה לבעל העסק בעדיפות גבוהה.”</div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <p class="demo-note">מצב דמו: אין כאן שליחת הודעות אמיתית. המטרה היא להראות את המסלול העסקי בלי סיכון.</p>
+    </section>
+
+    <section class="section dark" id="value">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>מה בעל העסק אמור להבין אחרי 60 שניות?</h2>
+          </div>
+          <p>לא “קניתי אתר”. קיבלתי מסלול שמוריד עומס, שומר פניות, ומראה לי מה צריך לעשות עכשיו.</p>
+        </div>
+
+        <div class="value-grid">
+          <article class="value-card">
+            <span>01</span>
+            <strong>פחות פניות שנופלות בין הכיסאות</strong>
+            <p>גם אם העסק עמוס, ליד נכנס ללוח במקום להיעלם בשיחות או הודעות.</p>
+          </article>
+          <article class="value-card">
+            <span>02</span>
+            <strong>פחות שאלות חוזרות לעובדים</strong>
+            <p>הסוכן עונה על בסיס: משלוחים, איסוף, מגשים, שעות ופרטים לפני חזרה.</p>
+          </article>
+          <article class="value-card">
+            <span>03</span>
+            <strong>יותר סדר בפניות ששוות כסף</strong>
+            <p>אירועים ומגשי אירוח מסומנים כבעלי עדיפות, כדי שלא יחזרו אליהם מאוחר מדי.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="close-panel">
+        <div>
+          <h2>אם זה רלוונטי, מתחילים קטן ומוכיחים על אמת.</h2>
+          <p>לא צריך להחליט עכשיו על מערכת ענקית. מתחילים במסלול פנייה חכם, בודקים אם זה חוסך זמן ומסדר פניות, ואז מחליטים איך ממשיכים.</p>
+          <div class="hero-actions">
+            <a class="btn" href="index.html" target="_blank" rel="noreferrer">לראות את האתר כמו לקוח</a>
+            <a class="btn secondary" href="#live-demo">להפעיל שוב את הדמו</a>
+          </div>
+        </div>
+        <aside class="next-box">
+          <b>השאלה היחידה בסוף השיחה</b>
+          <span>“אם אני מסדר לך את הפניות בצורה כזאת, שווה לך לבדוק את זה על העסק שלך לשבוע קצר?”</span>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const choices = document.querySelectorAll(".lead-choice");
+    const form = document.getElementById("demo-form");
+    const table = document.getElementById("lead-table");
+    const agentAnswer = document.getElementById("agent-answer");
+    let selectedKind = "משלוח";
+
+    const answers = {
+      "משלוח": "אפשר. כדי שלא יהיה פספוס, אני צריך כתובת, שעה רצויה, מה להזמין וטלפון. בעל העסק יקבל את זה כליד מסודר.",
+      "מגש אירוח": "מעולה, זו פנייה חשובה. אני מבקש כמות אנשים, תאריך, שעה, תקציב משוער וטלפון, ומסמן לבעל העסק עדיפות גבוהה.",
+      "שאלה": "בשמחה. אני אוסף את השאלה, שם וטלפון, ואם צריך תשובת בעל עסק זה מסומן לחזרה קצרה ומסודרת."
+    };
+
+    function setKind(kind) {
+      selectedKind = kind;
+      choices.forEach((choice) => {
+        choice.classList.toggle("active", choice.dataset.kind === kind);
+      });
+      const details = form.elements.details;
+      if (kind === "משלוח") {
+        details.value = "משלוח למשרד היום בצהריים, רוצה לדעת אם מגיעים לאזור ומה זמן הגעה.";
+      } else if (kind === "מגש אירוח") {
+        details.value = "מגש אירוח ל-18 אנשים מחר בבוקר, צריך לדעת מחיר וזמינות.";
+      } else {
+        details.value = "רוצה לדעת אם אפשר איסוף עצמי ומה השעות היום.";
+      }
+      agentAnswer.textContent = answers[kind];
+    }
+
+    choices.forEach((choice) => {
+      choice.addEventListener("click", () => setKind(choice.dataset.kind));
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const name = String(data.get("name") || "לקוח").trim();
+      const phone = String(data.get("phone") || "לא הוזן").trim();
+      const details = String(data.get("details") || selectedKind).trim();
+      const priority = selectedKind === "מגש אירוח" ? "עדיפות גבוהה" : selectedKind === "משלוח" ? "חדש" : "קל לסגירה";
+      const nextAction = selectedKind === "מגש אירוח"
+        ? "לחזור עם מחיר, זמינות ואפשרויות מגש"
+        : selectedKind === "משלוח"
+          ? "לאשר אזור, זמן ודמי משלוח"
+          : "לענות קצר או להעביר לבעל העסק";
+
+      const row = document.createElement("tr");
+      row.className = "flash";
+      row.innerHTML = `
+        <td>${escapeHtml(name)}<br><span class="ltr">${escapeHtml(phone)}</span></td>
+        <td>${escapeHtml(details)}</td>
+        <td><span class="tag">${escapeHtml(priority)}</span></td>
+        <td>${escapeHtml(nextAction)}</td>
+      `;
+      table.prepend(row);
+      agentAnswer.textContent = answers[selectedKind];
+      row.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+  </script>
+</body>
+</html>
