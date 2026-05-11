@@ -666,6 +666,102 @@
       font-weight: 800;
     }
 
+    .offer-system {
+      background:
+        radial-gradient(circle at 86% 18%, rgba(255, 138, 0, 0.12), transparent 30%),
+        linear-gradient(180deg, #fffdf7, #fff7e9);
+    }
+
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .offer-card {
+      min-height: 230px;
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: #fff;
+      padding: 22px;
+      box-shadow: 0 20px 60px rgba(48, 20, 8, 0.08);
+    }
+
+    .offer-card span {
+      width: max-content;
+      border-radius: 999px;
+      background: #fff1db;
+      color: #b65b00;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 1000;
+    }
+
+    .offer-card strong {
+      color: var(--coffee);
+      font-size: 24px;
+      line-height: 1.08;
+      font-weight: 1000;
+    }
+
+    .offer-card p {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 820;
+    }
+
+    .bottom-line {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-block-start: 18px;
+    }
+
+    .bottom-card,
+    .pilot-card {
+      border-radius: 30px;
+      padding: 26px;
+      box-shadow: 0 24px 70px rgba(48, 20, 8, 0.1);
+    }
+
+    .bottom-card {
+      background: var(--night);
+      color: #fff;
+    }
+
+    .bottom-card strong,
+    .pilot-card strong {
+      display: block;
+      font-size: 30px;
+      line-height: 1.1;
+      font-weight: 1000;
+    }
+
+    .bottom-card p {
+      margin-block-start: 10px;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 18px;
+      font-weight: 850;
+    }
+
+    .pilot-card {
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .pilot-card ol {
+      display: grid;
+      gap: 10px;
+      margin: 16px 0 0;
+      padding-inline-start: 22px;
+      color: var(--coffee);
+      font-weight: 900;
+    }
+
     .close-panel {
       display: grid;
       grid-template-columns: 1.05fr 0.95fr;
@@ -733,6 +829,8 @@
 
       .stage-panel,
       .value-grid,
+      .offer-grid,
+      .bottom-line,
       .comparison {
         grid-template-columns: 1fr;
       }
@@ -1007,6 +1105,60 @@
       </div>
     </section>
 
+    <section class="section offer-system" id="offer-system">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>מה אני בונה לעסק בפועל?</h2>
+          </div>
+          <p>לא מוכרים AI. בונים מערכת Lead-to-Booking: משהו שמכניס, מסדר וסוגר יותר פניות לעסק.</p>
+        </div>
+
+        <div class="offer-grid">
+          <article class="offer-card">
+            <span>01</span>
+            <strong>בדיקת דליפת לידים</strong>
+            <p>איפה לקוחות נופלים: אין טופס, אין מעקב, אין פולו-אפ, ואין תשובה בערב או בסופ"ש.</p>
+          </article>
+          <article class="offer-card">
+            <span>02</span>
+            <strong>אתר או דף חכם</strong>
+            <p>לא אתר יפה בלבד. דף שמציג אמון, שירותים, אזור פעילות, ביקורות וכפתורי פעולה.</p>
+          </article>
+          <article class="offer-card">
+            <span>03</span>
+            <strong>סוכן מכירות דיגיטלי</strong>
+            <p>עונה לשאלות, מסנן ליד, אוסף פרטים, מכין תקציר ומקפיץ מה שדורש בן אדם.</p>
+          </article>
+          <article class="offer-card">
+            <span>04</span>
+            <strong>מעקב ופולו-אפ</strong>
+            <p>לוח פשוט: מי פנה, מאיפה, מה הסטטוס, פעולה הבאה, תזכורת ומי צריך לחזור אליו.</p>
+          </article>
+          <article class="offer-card">
+            <span>05</span>
+            <strong>שיפור חודשי</strong>
+            <p>בדיקה, תיקונים, שיפור טקסטים, מעקב לידים, פולו-אפ, דוחות ושיפור המרה.</p>
+          </article>
+        </div>
+
+        <div class="bottom-line">
+          <div class="bottom-card">
+            <strong>השורה התחתונה: עוד לקוחות שלא הולכים לאיבוד.</strong>
+            <p>האתר מביא את הפנייה, הסוכן מסדר אותה, והלוח מוודא שיש פעולה הבאה. זה הערך, לא הטכנולוגיה.</p>
+          </div>
+          <div class="pilot-card">
+            <strong>מה בודקים בפיילוט קטן?</strong>
+            <ol>
+              <li>האם פניות לאירועים ומגשי אירוח נכנסות מסודר.</li>
+              <li>האם כל פנייה איכותית מטופלת תוך 24 שעות.</li>
+              <li>האם בעל העסק מרגיש פחות עומס ופחות פספוסים.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section wrap">
       <div class="close-panel">
         <div>
@@ -1018,6 +1170,8 @@
           </div>
         </div>
         <aside class="next-box">
+          <b>המשפט לפתיחת הערך</b>
+          <span>“אני לא בא לבנות לכם עוד אתר יפה. אני רוצה להראות איך פנייה של לקוח לא נעלמת: היא נכנסת, מקבלת סטטוס, יש פעולה הבאה, ואפשר למדוד מה טופל ומה התפספס.”</span>
           <b>השאלה היחידה בסוף השיחה</b>
           <span>“אם אני מסדר לך את הפניות בצורה כזאת, שווה לך לבדוק את זה על העסק שלך לשבוע קצר?”</span>
         </aside>
