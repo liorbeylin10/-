@@ -207,6 +207,37 @@
       margin-block-start: 34px;
     }
 
+    .business-fit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-block-start: 18px;
+    }
+
+    .business-fit span {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.78);
+      padding: 7px 11px;
+      font-size: 12px;
+      font-weight: 1000;
+    }
+
+    .owner-proof-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-block-start: 18px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .owner-proof-line strong {
+      color: #fff;
+    }
+
     .focus-card {
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 34px;
@@ -820,6 +851,140 @@
       text-align: center;
     }
 
+    .floating-agent {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 60;
+      width: min(380px, calc(100vw - 32px));
+      overflow: hidden;
+      border: 1px solid rgba(255, 212, 148, 0.44);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(255, 138, 0, 0.32), transparent 34%),
+        linear-gradient(135deg, #1c0c05, #0f261e);
+      color: #fff;
+      box-shadow: 0 28px 80px rgba(18, 8, 4, 0.32);
+    }
+
+    .agent-toggle {
+      width: 100%;
+      min-height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 0;
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      padding: 0 16px;
+      cursor: pointer;
+      text-align: right;
+    }
+
+    .agent-toggle span {
+      display: grid;
+      gap: 2px;
+      font-size: 15px;
+      font-weight: 1000;
+      line-height: 1.1;
+    }
+
+    .agent-toggle small {
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .agent-toggle b {
+      min-width: 54px;
+      min-height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 13px;
+      font-weight: 1000;
+    }
+
+    .agent-floating-body {
+      display: none;
+      gap: 12px;
+      padding: 0 16px 16px;
+    }
+
+    .floating-agent.open .agent-floating-body {
+      display: grid;
+    }
+
+    .agent-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: max-content;
+      border-radius: 999px;
+      background: rgba(223, 246, 234, 0.12);
+      color: #dff6ea;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 1000;
+    }
+
+    .agent-live::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #44d77f;
+      box-shadow: 0 0 0 5px rgba(68, 215, 127, 0.14);
+    }
+
+    .agent-lead-card {
+      display: grid;
+      gap: 9px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 13px;
+    }
+
+    .agent-lead-card strong {
+      color: #fff;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .agent-lead-card p {
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .agent-checklist {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .agent-checklist li::before {
+      content: "\2713";
+      color: var(--honey-soft);
+      margin-inline-end: 6px;
+      font-weight: 1000;
+    }
+
+    .agent-floating-body .btn {
+      min-height: 42px;
+      width: 100%;
+      box-shadow: none;
+    }
+
     @media (max-width: 980px) {
       .hero-grid,
       .live-demo,
@@ -916,6 +1081,18 @@
       .close-panel {
         padding: 24px;
       }
+
+      .floating-agent {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        width: auto;
+        border-radius: 20px;
+      }
+
+      .floating-agent.open .agent-floating-body {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -943,6 +1120,16 @@
           <div class="hero-actions">
             <a class="btn" href="#live-demo">תראה לי ליד נכנס</a>
             <a class="btn secondary" href="#value">מה בעל העסק מקבל</a>
+          </div>
+          <div class="business-fit" aria-label="סוגי עסקים מתאימים">
+            <span>בתי קפה</span>
+            <span>מספרות וקליניקות</span>
+            <span>נותני שירות</span>
+            <span>כל עסק עם פניות</span>
+          </div>
+          <div class="owner-proof-line" aria-label="מה האתר החכם עושה">
+            <strong>המסר לדמו:</strong>
+            <span>יותר פניות מסודרות, פחות לקוחות שנעלמים, פעולה הבאה ברורה לכל ליד.</span>
           </div>
         </div>
 
@@ -1179,11 +1366,36 @@
     </section>
   </main>
 
+  <aside class="floating-agent open" id="floating-agent" aria-label="סוכן פניות חכם">
+    <button class="agent-toggle" type="button" id="agent-toggle">
+      <span>סוכן פניות חכם<small>נראה לבעל העסק בזמן הדמו</small></span>
+      <b id="agent-toggle-label">סגור</b>
+    </button>
+    <div class="agent-floating-body">
+      <span class="agent-live">פעיל בדמו</span>
+      <div class="agent-lead-card">
+        <strong id="floating-status">פנייה חדשה מוכנה לטיפול</strong>
+        <p id="floating-summary">לקוח מתעניין במשלוח / מגש / שאלה. הסוכן אוסף פרטים ומעביר לבעל העסק ליד מסודר.</p>
+      </div>
+      <ul class="agent-checklist">
+        <li>שואל מה הלקוח רוצה</li>
+        <li>אוסף שם, טלפון ופרטים חשובים</li>
+        <li>מסמן פעולה הבאה במקום להשאיר הודעה פתוחה</li>
+      </ul>
+      <a class="btn" href="#live-demo">פתח את דמו הפנייה</a>
+    </div>
+  </aside>
+
   <script>
     const choices = document.querySelectorAll(".lead-choice");
     const form = document.getElementById("demo-form");
     const table = document.getElementById("lead-table");
     const agentAnswer = document.getElementById("agent-answer");
+    const floatingAgent = document.getElementById("floating-agent");
+    const agentToggle = document.getElementById("agent-toggle");
+    const agentToggleLabel = document.getElementById("agent-toggle-label");
+    const floatingStatus = document.getElementById("floating-status");
+    const floatingSummary = document.getElementById("floating-summary");
     let selectedKind = "משלוח";
 
     const answers = {
@@ -1212,6 +1424,11 @@
       choice.addEventListener("click", () => setKind(choice.dataset.kind));
     });
 
+    agentToggle.addEventListener("click", () => {
+      floatingAgent.classList.toggle("open");
+      agentToggleLabel.textContent = floatingAgent.classList.contains("open") ? "סגור" : "פתח";
+    });
+
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       const data = new FormData(form);
@@ -1235,6 +1452,10 @@
       `;
       table.prepend(row);
       agentAnswer.textContent = answers[selectedKind];
+      floatingAgent.classList.add("open");
+      agentToggleLabel.textContent = "סגור";
+      floatingStatus.textContent = `פנייה חדשה: ${selectedKind}`;
+      floatingSummary.textContent = `${name} | ${phone} | ${priority}. פעולה הבאה: ${nextAction}`;
       row.scrollIntoView({ behavior: "smooth", block: "center" });
     });
 
