@@ -481,7 +481,14 @@
       font-weight: 1000;
     }
 
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
     .fake-form input,
+    .fake-form select,
     .fake-form textarea {
       width: 100%;
       border: 1px solid var(--line);
@@ -489,11 +496,20 @@
       background: #fff;
       padding: 12px 14px;
       outline: 0;
+      color: var(--coffee);
+      font: inherit;
     }
 
     .fake-form textarea {
       min-height: 92px;
       resize: vertical;
+    }
+
+    .field-hint {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1.45;
     }
 
     .owner-view {
@@ -607,6 +623,15 @@
       background: #fffaf0;
       font-size: 12px;
       font-weight: 1000;
+    }
+
+    td small {
+      display: block;
+      margin-block-start: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.5;
     }
 
     td {
@@ -1082,6 +1107,10 @@
         padding: 24px;
       }
 
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
       .floating-agent {
         right: 12px;
         bottom: 12px;
@@ -1194,9 +1223,36 @@
               <label>טלפון
                 <input class="ltr" name="phone" value="052-1111111" autocomplete="off">
               </label>
+              <label>כמות אנשים / פריטים
+                <input name="amount" value="למשל: 18 אנשים או 3 מגשים" autocomplete="off">
+              </label>
+              <div class="field-grid">
+                <label>תקציב משוער אם יש
+                  <input name="budget" value="למשל: 350 ש״ח" autocomplete="off">
+                </label>
+                <label>דחיפות
+                  <select name="urgency">
+                    <option>לא דחוף</option>
+                    <option selected>צריך תשובה היום</option>
+                    <option>דחוף לעכשיו</option>
+                  </select>
+                </label>
+              </div>
+              <div class="field-grid">
+                <label>תאריך רצוי
+                  <input name="date" type="date" value="2026-05-12">
+                </label>
+                <label>שעה רצויה
+                  <input name="time" type="time" value="07:30">
+                </label>
+              </div>
+              <label>אזור / כתובת
+                <input name="area" value="טירת כרמל, נשר, חיפה או כתובת למשלוח" autocomplete="off">
+              </label>
               <label>מה צריך?
                 <textarea name="details">מגש אירוח ל-18 אנשים מחר בבוקר, צריך לדעת מחיר וזמינות.</textarea>
               </label>
+              <div class="field-hint">בדמו זה לא שולח הודעה אמיתית. בפועל, המערכת תשמור את הפרטים ללוח פניות ותכין לבעל העסק סיכום קצר.</div>
               <button class="btn dark" type="submit">הכנס את הפנייה ללוח העסק</button>
             </form>
           </div>
@@ -1238,13 +1294,13 @@
                 <tbody id="lead-table">
                   <tr>
                     <td>מורן<br><span class="ltr">054-0000000</span></td>
-                    <td>משלוח למשרד</td>
+                    <td>משלוח למשרד<small>כמות: 6 מנות | תקציב: 220 ש״ח | היום 12:30 | חיפה</small></td>
                     <td><span class="tag">חדש</span></td>
                     <td>לאשר אזור ושעת משלוח</td>
                   </tr>
                   <tr>
                     <td>אורי<br><span class="ltr">050-0000000</span></td>
-                    <td>שאלה על איסוף עצמי</td>
+                    <td>שאלה על איסוף עצמי<small>כמות: לקוח אחד | לא דחוף | היום 16:00 | איסוף עצמי</small></td>
                     <td><span class="tag">קל לסגירה</span></td>
                     <td>לשלוח תפריט ולבקש שעה</td>
                   </tr>
@@ -1375,7 +1431,7 @@
       <span class="agent-live">פעיל בדמו</span>
       <div class="agent-lead-card">
         <strong id="floating-status">פנייה חדשה מוכנה לטיפול</strong>
-        <p id="floating-summary">לקוח מתעניין במשלוח / מגש / שאלה. הסוכן אוסף פרטים ומעביר לבעל העסק ליד מסודר.</p>
+        <p id="floating-summary">לקוח מתעניין במשלוח / מגש / שאלה. הסוכן אוסף כמות, תקציב, תאריך, שעה ואזור, ומעביר לבעל העסק ליד מסודר.</p>
       </div>
       <ul class="agent-checklist">
         <li>שואל מה הלקוח רוצה</li>
@@ -1410,12 +1466,36 @@
         choice.classList.toggle("active", choice.dataset.kind === kind);
       });
       const details = form.elements.details;
+      const amount = form.elements.amount;
+      const budget = form.elements.budget;
+      const urgency = form.elements.urgency;
+      const date = form.elements.date;
+      const time = form.elements.time;
+      const area = form.elements.area;
       if (kind === "משלוח") {
         details.value = "משלוח למשרד היום בצהריים, רוצה לדעת אם מגיעים לאזור ומה זמן הגעה.";
+        amount.value = "למשל: 6 מנות או מגש קטן";
+        budget.value = "למשל: 180-250 ש״ח";
+        urgency.value = "דחוף לעכשיו";
+        date.value = "2026-05-11";
+        time.value = "12:30";
+        area.value = "טירת כרמל / חיפה / כתובת למשלוח";
       } else if (kind === "מגש אירוח") {
         details.value = "מגש אירוח ל-18 אנשים מחר בבוקר, צריך לדעת מחיר וזמינות.";
+        amount.value = "למשל: 18 אנשים או 3 מגשים";
+        budget.value = "למשל: 350 ש״ח";
+        urgency.value = "צריך תשובה היום";
+        date.value = "2026-05-12";
+        time.value = "07:30";
+        area.value = "טירת כרמל, נשר, חיפה או כתובת למשלוח";
       } else {
         details.value = "רוצה לדעת אם אפשר איסוף עצמי ומה השעות היום.";
+        amount.value = "למשל: לקוח אחד";
+        budget.value = "לא ידוע";
+        urgency.value = "לא דחוף";
+        date.value = "2026-05-11";
+        time.value = "16:00";
+        area.value = "איסוף עצמי / אזור קרוב";
       }
       agentAnswer.textContent = answers[kind];
     }
@@ -1435,18 +1515,25 @@
       const name = String(data.get("name") || "לקוח").trim();
       const phone = String(data.get("phone") || "לא הוזן").trim();
       const details = String(data.get("details") || selectedKind).trim();
+      const amount = String(data.get("amount") || "לא הוזן").trim();
+      const budget = String(data.get("budget") || "לא הוזן").trim();
+      const urgency = String(data.get("urgency") || "לא הוזן").trim();
+      const date = String(data.get("date") || "לא הוזן").trim();
+      const time = String(data.get("time") || "לא הוזן").trim();
+      const area = String(data.get("area") || "לא הוזן").trim();
       const priority = selectedKind === "מגש אירוח" ? "עדיפות גבוהה" : selectedKind === "משלוח" ? "חדש" : "קל לסגירה";
       const nextAction = selectedKind === "מגש אירוח"
         ? "לחזור עם מחיר, זמינות ואפשרויות מגש"
         : selectedKind === "משלוח"
           ? "לאשר אזור, זמן ודמי משלוח"
           : "לענות קצר או להעביר לבעל העסק";
+      const leadMeta = `כמות: ${amount} | תקציב: ${budget} | דחיפות: ${urgency} | תאריך: ${date} | שעה: ${time} | אזור: ${area}`;
 
       const row = document.createElement("tr");
       row.className = "flash";
       row.innerHTML = `
         <td>${escapeHtml(name)}<br><span class="ltr">${escapeHtml(phone)}</span></td>
-        <td>${escapeHtml(details)}</td>
+        <td>${escapeHtml(details)}<small>${escapeHtml(leadMeta)}</small></td>
         <td><span class="tag">${escapeHtml(priority)}</span></td>
         <td>${escapeHtml(nextAction)}</td>
       `;
@@ -1455,7 +1542,7 @@
       floatingAgent.classList.add("open");
       agentToggleLabel.textContent = "סגור";
       floatingStatus.textContent = `פנייה חדשה: ${selectedKind}`;
-      floatingSummary.textContent = `${name} | ${phone} | ${priority}. פעולה הבאה: ${nextAction}`;
+      floatingSummary.textContent = `${name} | ${phone} | ${amount} | ${date} ${time}. פעולה הבאה: ${nextAction}`;
       row.scrollIntoView({ behavior: "smooth", block: "center" });
     });
 
